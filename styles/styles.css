@@ -1,0 +1,405 @@
+/* ----------------------- */
+/* VARIABLES / BODY / HTML */
+/* ----------------------- */
+
+:root {
+  --font-primary: 'Inter', sans-serif;
+
+  /* Color variables */
+  --color-bg-primary: #0a0a0a;
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-accent: #f25a08;
+  --color-bg-card: #1a1a1a;
+  /* Orange already means accent here, so errors need a color of their own */
+  --color-error: #ef4444;
+}
+
+/* Reset browser defaults */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  /* Makes padding and border count inside the elements set width, not added on top */
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased; /* Make light text on dark bg appear cleaner */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ----------------------- */
+/* COMMON CONTAINER STYLES */
+/* ----------------------- */
+
+.container {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+main {
+  flex: 1; /* Pushes the footer down even when the page is short */
+  padding: 3rem 0;
+}
+
+/* ------------- */
+/* INTRO SECTION */
+/* ------------- */
+
+.intro {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.intro-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.intro-info {
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ------------------ */
+/* CALCULATOR SECTION */
+/* ------------------ */
+
+.calculator-form {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-accent);
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+.calculator-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* The app cannot check where the painopiste was measured from, so it says so */
+.calculator-hint {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.landing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.landing-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-areas:
+    "label label label"
+    "volume distance remove";
+  gap: 0.5rem 1rem;
+  align-items: end;
+}
+
+.landing-label {
+  grid-area: label;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.landing-field:nth-of-type(1) {
+  grid-area: volume;
+}
+
+.landing-field:nth-of-type(2) {
+  grid-area: distance;
+}
+
+.landing-field label {
+  display: block;
+  font-size: 0.8125rem;
+  margin-bottom: 0.25rem;
+}
+
+.landing-field input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-text-secondary);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  transition: border-color 300ms;
+}
+
+.landing-field input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+/* Apply the border change only on hover (mouse) */
+@media (hover: hover) {
+  .landing-field input:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+.landing-remove {
+  grid-area: remove;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6rem;
+  width: 2.6rem;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--color-text-secondary);
+  border-radius: 9999px; /* Perfect circle no matter the size */
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+.landing-remove:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Apply the color change only on hover (mouse), and not when disabled */
+@media (hover: hover) {
+  .landing-remove:not(:disabled):hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+/* ------------------------ */
+/* STATUS MESSAGE / BUTTONS */
+/* ------------------------ */
+
+.status-message {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  min-height: 1.25rem; /* Reserve the line so the buttons dont jump around */
+  margin-top: 1rem;
+}
+
+.calculator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 9999px; /* Pill shape whatever the label length */
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+.btn i {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn-primary {
+  color: var(--color-bg-primary);
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.btn-secondary {
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--color-text-secondary);
+}
+
+/* Apply the hover styles only on devices with a mouse */
+@media (hover: hover) {
+  .btn-primary:hover {
+    box-shadow: 2px 2px 20px 1px var(--color-accent);
+  }
+
+  .btn-secondary:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+/* -------------- */
+/* RESULT SECTION */
+/* -------------- */
+
+.result {
+  margin-top: 2rem;
+}
+
+.result-card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-accent);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.result-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.result-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--color-accent);
+}
+
+.result-unit {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.result-total {
+  font-size: 0.9375rem;
+  margin-top: 0.25rem;
+}
+
+/* The volume shares make a mistyped puumaara obvious at a glance */
+.result-shares {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-text-secondary);
+  padding-top: 1rem;
+  text-align: left;
+}
+
+.result-shares:empty {
+  display: none;
+}
+
+.share-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9375rem;
+  padding: 0.35rem 0;
+}
+
+.share-name {
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.share-value {
+  color: var(--color-accent);
+  font-weight: 700;
+  min-width: 4.5rem;
+  text-align: right;
+}
+
+/* ------ */
+/* FOOTER */
+/* ------ */
+
+footer {
+  text-align: center;
+  font-size: 0.875rem;
+  padding: 2rem 0;
+}
+
+/* ------------ */
+/* FOCUS STYLES */
+/* ------------ */
+
+/* Keyboard users need to see where they are, mouse users dont get an outline */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------- */
+/* TABLET SIZED SCREEN STYLES */
+/* -------------------------- */
+
+@media (max-width: 654px) {
+
+  /* INTRO SECTION */
+  .intro-title {
+    font-size: 2rem;
+  }
+
+  /* CALCULATOR SECTION */
+  .calculator-form {
+    padding: 1.5rem;
+  }
+
+  /* RESULT SECTION */
+  .result-card {
+    padding: 1.5rem;
+  }
+
+  .result-value {
+    font-size: 3rem;
+  }
+}
+
+/* -------------------------- */
+/* MOBILE SIZED SCREEN STYLES */
+/* -------------------------- */
+
+@media (max-width: 482px) {
+
+  /* CALCULATOR SECTION */
+  .landing-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "label remove"
+      "volume volume"
+      "distance distance";
+    align-items: center;
+  }
+
+  /* Full width stacked buttons, the labels are too long to sit side by side */
+  .calculator-actions {
+    flex-direction: column;
+  }
+
+  .calculator-actions .btn {
+    justify-content: center;
+  }
+
+  /* RESULT SECTION */
+  .result-value {
+    font-size: 2.5rem;
+  }
+
+  .share-distance {
+    display: none; /* Keeps the share rows on one line on narrow screens */
+  }
+}
