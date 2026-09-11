@@ -3,9 +3,9 @@
 A small browser tool for calculating the forwarding distance (*metsäkuljetusmatka*) of a single
 harvesting block when the wood is driven to more than one landing (*varastopaikka*).
 
-Metsä's work instruction *Metsäkuljetusmatkan määrittäminen* (14.05.2019) defines the figure as a
-volume-weighted mean: *"Useamman kuvion lohkolla kuvioiden puumäärillä punnittu lohkon
-keskiajomatka."* In other words:
+Work instructions define the figure as volume-weighted mean:  
+*"Useamman kuvion lohkolla kuvioiden puumäärillä punnittu lohkon keskiajomatka."*  
+In other words:
 
 ```
 d = Σ(Vᵢ · dᵢ) / Σ Vᵢ
